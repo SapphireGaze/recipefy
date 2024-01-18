@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 import { IRecipe } from "../../lib/types";
 
-const recipeSchema = new Schema<IRecipe>({
+const recipeSchema: mongoose.Schema = new Schema<IRecipe>({
   name: {
     type: String,
     required: true,
@@ -32,6 +32,9 @@ const recipeSchema = new Schema<IRecipe>({
   },
 });
 
-const RecipeModel = mongoose.model("Recipe", recipeSchema);
+const RecipeModel: mongoose.Model<IRecipe> = mongoose.model<IRecipe>(
+  "Recipe",
+  recipeSchema
+);
 
 export default RecipeModel;

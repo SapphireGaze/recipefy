@@ -23,8 +23,17 @@ const userSchema: mongoose.Schema = new Schema<IUser>({
       ref: "Recipe",
     },
   ],
+  favorites: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Recipe",
+    },
+  ],
 });
 
-const UserModel = mongoose.model<IUser>("User", userSchema);
+const UserModel: mongoose.Model<IUser> = mongoose.model<IUser>(
+  "User",
+  userSchema
+);
 
 export default UserModel;
