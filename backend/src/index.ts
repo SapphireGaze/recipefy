@@ -11,7 +11,7 @@ const port: number = Number(process.env.PORT) || 3030;
 mongoose
   .connect(process.env.DB_HOST as string)
   .then(() => console.log("Connected to database!"))
-  .catch((error) => console.error("Error connecting to database:", error));
+  .catch((err) => console.error("Error connecting to database:", err));
 
 const app: express.Express = express();
 
@@ -27,7 +27,7 @@ app.use("/api/auth", AuthRouter);
 app.use("/api/recipe", RecipeRouter);
 
 // endpoint for connection testing
-app.get("/test", (req: express.Request, res: express.Response) => {
+app.get("/", (req: express.Request, res: express.Response) => {
   console.log(req.hostname, "sent a request");
   res.status(200).json({
     message: "Recipefy backend is listening...",

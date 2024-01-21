@@ -9,7 +9,8 @@ RecipeRouter.use(express.json());
 
 RecipeRouter.get("/", async (req: express.Request, res: express.Response) => {
   try {
-    const recipes: IRecipe[] = await RecipeModel.find();
+    const recipes: IRecipe[] = await RecipeModel.find().exec();
+
     res.status(200).json(recipes);
   } catch (err) {
     res.status(501).json({ error: err });
@@ -22,7 +23,7 @@ RecipeRouter.get(
   async (req: express.Request, res: express.Response) => {
     try {
       const id: string = req.params.id;
-      const recipe: IRecipe | null = await RecipeModel.findById(id);
+      const recipe: IRecipe | null = await RecipeModel.findById(id).exec();
 
       res.status(200).json(recipe);
     } catch (err) {
