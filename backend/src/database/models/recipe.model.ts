@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 
-import { IRecipe } from "../../lib/types";
+import { IRecipe, IRecipeModel, IUser } from "../../lib/types";
+
+import UserModel from "./user.model";
 
 const recipeSchema: mongoose.Schema = new Schema<IRecipe>({
   name: {
@@ -32,9 +34,41 @@ const recipeSchema: mongoose.Schema = new Schema<IRecipe>({
   },
 });
 
-const RecipeModel: mongoose.Model<IRecipe> = mongoose.model<IRecipe>(
-  "Recipe",
-  recipeSchema
-);
+recipeSchema.statics.add = async function (
+  token: string,
+  recipe: IRecipe
+): Promise<void> {
+  const _id: string = await UserModel.validateToken(token);
+
+  const newRecipe: IRecipe = await RecipeModel.create({
+    name: recipe.name,
+    description: recipe.description,
+    ingredients: recipe.ingredients,
+    instructions: recipe.instructions,
+    prepTime: recipe.prepTime,
+    cookTime: recipe.cookTime,
+    servings: recipe.servings,
+  });
+
+  if (!newRecipe) {
+    throw "Error adding recipe to database.";
+  }
+
+  const user: IUser | null = await UserModel.findById(_id).exec();
+
+  if (!user) {
+    throw "Invalid user.";
+  }
+
+  user.recipes.push(newRecipe._id);
+  await UserModel.findByIdAndUpdate(user._id, {
+    $set: { recipes: user.recipes },
+  }).exec();
+};
+
+const RecipeModel: mongoose.Model<IRecipe> & IRecipeModel = mongoose.model<
+  IRecipe,
+  IRecipeModel
+>("Recipe", recipeSchema);
 
 export default RecipeModel;

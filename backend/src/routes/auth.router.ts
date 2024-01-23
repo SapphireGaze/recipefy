@@ -10,6 +10,14 @@ AuthRouter.get(
   "/validate",
   async (req: express.Request, res: express.Response) => {
     try {
+      const token: string =
+        (req.headers.authorization &&
+          req.headers.authorization.split(" ")[1]) ||
+        "";
+
+      const _id: string = await UserModel.validateToken(token);
+
+      res.status(200).json({ _id: _id });
     } catch (err) {
       res.status(501).json({ error: err });
       console.error(err);

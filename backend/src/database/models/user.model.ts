@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import jwt from "jsonwebtoken";
+import jwt, { VerifyErrors } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import validator from "validator";
 
@@ -90,11 +90,31 @@ userSchema.statics.login = async function (
   }
 
   const secret: string = process.env.JWT_SECRET || "secret";
-  const token: string = jwt.sign({ _id: user._id }, secret, {
+  const token: string = jwt.sign({ _id: user._id.toString() }, secret, {
     expiresIn: "7d",
   });
 
   return token;
+};
+
+userSchema.statics.validateToken = async function (
+  token: string
+): Promise<string> {
+  if (!token) {
+    throw "No token found.";
+  }
+
+  let _id: string = "";
+  const secret: string = process.env.JWT_SECRET || "secret";
+
+  jwt.verify(token, secret, (err: VerifyErrors | null, decoded: any) => {
+    if (err) {
+      throw "Invalid jwt token.";
+    }
+    _id = decoded._id;
+  });
+
+  return _id;
 };
 
 const UserModel: mongoose.Model<IUser> & IUserModel = mongoose.model<
