@@ -18,6 +18,7 @@ export interface IUserModel extends mongoose.Model<IUser> {
 export interface IRecipe {
   _id: Types.ObjectId;
   name: string;
+  author?: Types.ObjectId;
   description?: string;
   ingredients: string[];
   instructions: string;

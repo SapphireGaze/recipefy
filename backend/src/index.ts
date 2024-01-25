@@ -11,7 +11,9 @@ const port: number = Number(process.env.PORT) || 3030;
 mongoose
   .connect(process.env.DB_HOST as string)
   .then(() => console.log("Connected to database!"))
-  .catch((err) => console.error("Error connecting to database:", err));
+  .catch((err) =>
+    console.error("Error connecting to database:", (err as Error).message)
+  );
 
 const app: express.Express = express();
 

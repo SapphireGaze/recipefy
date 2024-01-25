@@ -42,11 +42,11 @@ userSchema.statics.register = async function (
   password: string
 ): Promise<void> {
   if (!email || !username || !password) {
-    throw "Cannot leave field empty.";
+    throw new Error("Cannot leave field empty.");
   }
 
   if (!validator.isEmail(email)) {
-    throw "Invalid email.";
+    throw new Error("Invalid email.");
   }
 
   email = validator.normalizeEmail(email) || "";
@@ -55,7 +55,7 @@ userSchema.statics.register = async function (
     (await this.findOne({ email: email })) ||
     (await this.findOne({ username: username }))
   ) {
-    throw "Email or username already in use.";
+    throw new Error("Email or username already in use.");
   }
 
   const passwordHash: string = await bcrypt.hash(password, 10);
@@ -72,7 +72,7 @@ userSchema.statics.login = async function (
   password: string
 ): Promise<string> {
   if (!username || !password) {
-    throw "Cannot leave field empty.";
+    throw new Error("Cannot leave field empty.");
   }
 
   const user: IUser | null = await this.findOne({
@@ -80,13 +80,13 @@ userSchema.statics.login = async function (
   }).exec();
 
   if (!user) {
-    throw "Username not found.";
+    throw new Error("Username not found.");
   }
 
   const match: boolean = await bcrypt.compare(password, user.passwordHash);
 
   if (!match) {
-    throw "Incorrect password.";
+    throw new Error("Incorrect password.");
   }
 
   const secret: string = process.env.JWT_SECRET || "secret";
@@ -101,7 +101,7 @@ userSchema.statics.validateToken = async function (
   token: string
 ): Promise<string> {
   if (!token) {
-    throw "No token found.";
+    throw new Error("No token found.");
   }
 
   let _id: string = "";
@@ -109,7 +109,7 @@ userSchema.statics.validateToken = async function (
 
   jwt.verify(token, secret, (err: VerifyErrors | null, decoded: any) => {
     if (err) {
-      throw "Invalid jwt token.";
+      throw new Error("Invalid jwt token.");
     }
     _id = decoded._id;
   });

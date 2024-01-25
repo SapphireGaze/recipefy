@@ -19,7 +19,7 @@ AuthRouter.get(
 
       res.status(200).json({ _id: _id });
     } catch (err) {
-      res.status(501).json({ error: err });
+      res.status(501).json({ error: (err as Error).message });
       console.error(err);
     }
   }
@@ -35,7 +35,7 @@ AuthRouter.get(
 
       res.status(200).json({ token: token });
     } catch (err) {
-      res.status(501).json({ error: err });
+      res.status(501).json({ error: (err as Error).message });
       console.error(err);
     }
   }
@@ -52,7 +52,7 @@ AuthRouter.post(
 
       res.status(200).json({ token: token });
     } catch (err) {
-      res.status(501).json({ error: err });
+      res.status(501).json({ error: (err as Error).message });
       console.error(err);
     }
   }

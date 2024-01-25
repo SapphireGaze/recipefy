@@ -14,7 +14,7 @@ RecipeRouter.get("/", async (req: express.Request, res: express.Response) => {
 
     res.status(200).json(recipes);
   } catch (err) {
-    res.status(501).json({ error: err });
+    res.status(501).json({ error: (err as Error).message });
     console.error(err);
   }
 });
@@ -28,7 +28,7 @@ RecipeRouter.get(
 
       res.status(200).json(recipe);
     } catch (err) {
-      res.status(501).json({ error: err });
+      res.status(501).json({ error: (err as Error).message });
       console.error(err);
     }
   }
@@ -47,7 +47,7 @@ RecipeRouter.post("/", async (req: express.Request, res: express.Response) => {
       .status(200)
       .json({ success: `Recipe ${recipe.name} uploaded successful!` });
   } catch (err) {
-    res.status(501).json({ error: err });
+    res.status(501).json({ error: (err as Error).message });
     console.error(err);
   }
 });

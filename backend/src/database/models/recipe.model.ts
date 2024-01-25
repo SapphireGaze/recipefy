@@ -9,6 +9,10 @@ const recipeSchema: mongoose.Schema = new Schema<IRecipe>({
     type: String,
     required: true,
   },
+  author: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  },
   description: {
     type: String,
   },
@@ -42,6 +46,7 @@ recipeSchema.statics.add = async function (
 
   const newRecipe: IRecipe = await RecipeModel.create({
     name: recipe.name,
+    author: _id,
     description: recipe.description,
     ingredients: recipe.ingredients,
     instructions: recipe.instructions,
@@ -51,13 +56,13 @@ recipeSchema.statics.add = async function (
   });
 
   if (!newRecipe) {
-    throw "Error adding recipe to database.";
+    throw new Error("Error adding recipe to database.");
   }
 
   const user: IUser | null = await UserModel.findById(_id).exec();
 
   if (!user) {
-    throw "Invalid user.";
+    throw new Error("Invalid user.");
   }
 
   user.recipes.push(newRecipe._id);
