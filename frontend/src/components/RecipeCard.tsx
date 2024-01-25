@@ -22,11 +22,11 @@ export const RecipeCard: React.FC<Recipe> = ({
     <>
       <Link href={`/recipe/${_id}`}>
         <div
-          id=""
-          className="m-4 max-w-sm overflow-hidden rounded-md shadow-lg hover:animate-pulse"
+          id={_id}
+          className="m-4 max-w-sm overflow-hidden rounded-md font-serif shadow-lg hover:animate-pulse"
         >
           <div className="px-6 py-4">
-            <div className="mb-2 font-serif text-2xl font-bold">{name}</div>
+            <div className="mb-2 font-mono text-2xl font-bold">{name}</div>
             <p className="text-base">{description}</p>
           </div>
           <div className="px-6 pb-2 pt-4">

@@ -1,5 +1,4 @@
-import cors from "cors";
-import express from "express";
+import express, { NextFunction } from "express";
 import mongoose from "mongoose";
 
 import AuthRouter from "./routes/auth.router";
@@ -18,12 +17,14 @@ mongoose
 const app: express.Express = express();
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://127.0.0.1:3000"],
-    methods: ["GET", "POST"],
-  })
-);
+
+// set up cross origin resource sharing
+app.use((req: express.Request, res: express.Response, next: NextFunction) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/recipe", RecipeRouter);
