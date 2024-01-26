@@ -12,6 +12,7 @@ const recipeSchema: mongoose.Schema = new Schema<IRecipe>({
   author: {
     type: mongoose.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   description: {
     type: String,
@@ -21,7 +22,7 @@ const recipeSchema: mongoose.Schema = new Schema<IRecipe>({
     required: true,
   },
   instructions: {
-    type: String,
+    type: [String],
     required: true,
   },
   prepTime: {
@@ -46,7 +47,7 @@ recipeSchema.statics.add = async function (
 
   const newRecipe: IRecipe = await RecipeModel.create({
     name: recipe.name,
-    author: _id,
+    author: new mongoose.Types.ObjectId(_id),
     description: recipe.description,
     ingredients: recipe.ingredients,
     instructions: recipe.instructions,

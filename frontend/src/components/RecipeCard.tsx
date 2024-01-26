@@ -30,7 +30,7 @@ export const RecipeCard: React.FC<Recipe> = ({
             <p className="text-base">{description}</p>
           </div>
           <div className="px-6 pb-2 pt-4">
-            {ingredients.map((ingredient, index) => (
+            {ingredients.map((ingredient: string, index: number) => (
               <Ingredient key={index} ingredient={ingredient} />
             ))}
           </div>

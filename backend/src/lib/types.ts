@@ -21,7 +21,7 @@ export interface IRecipe {
   author?: Types.ObjectId;
   description?: string;
   ingredients: string[];
-  instructions: string;
+  instructions: string[];
   prepTime: number;
   cookTime: number;
   servings: number;

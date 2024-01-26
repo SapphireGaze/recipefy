@@ -31,10 +31,22 @@ export default function RecipeIdPage({ params: { _id } }: ParamsId) {
   const ingredientsList: JSX.Element | null = recipe.ingredients ? (
     <div className="flex flex-col p-4">
       <div className="text-xl font-semibold">Ingredients: </div>
-      {recipe.ingredients.map((ingredient, index) => (
+      {recipe.ingredients.map((ingredient: string, index: number) => (
         <li key={index} className="ml-4">
           <div>{ingredient}</div>
         </li>
+      ))}
+    </div>
+  ) : null;
+
+  const instructions: JSX.Element | null = recipe.instructions ? (
+    <div className="px-4">
+      <div className="text-xl font-semibold">Instructions: </div>
+      {recipe.instructions.map((instruction: string, index: number) => (
+        <div key={index}>
+          <span className="font-semibold">{index + 1}. </span>
+          {instruction}
+        </div>
       ))}
     </div>
   ) : null;
@@ -62,10 +74,7 @@ export default function RecipeIdPage({ params: { _id } }: ParamsId) {
           </li>
         </div>
         {ingredientsList}
-        <div className="px-4">
-          <div className="text-xl font-semibold">Instructions: </div>
-          {recipe.instructions}
-        </div>
+        {instructions}
       </div>
     </>
   );

@@ -14,7 +14,7 @@ export interface Recipe {
   author: string;
   description?: string;
   ingredients: string[];
-  instructions: string;
+  instructions: string[];
   prepTime: number;
   cookTime: number;
   servings: number;
