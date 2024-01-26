@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <main className="from-accent to-foreground flex min-h-screen flex-col items-center justify-between bg-gradient-to-tr p-24 font-mono">
+        <main className="from-accent to-foreground flex min-h-screen flex-col items-center justify-between bg-gradient-to-tr p-12 font-mono">
           {children}
         </main>
       </body>

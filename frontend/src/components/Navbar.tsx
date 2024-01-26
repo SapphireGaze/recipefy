@@ -4,10 +4,10 @@ import Link from "next/link";
 export const Navbar: React.FC = () => {
   return (
     <>
-      <nav className="from-background-light to-background-dark sticky top-0 border-gray-200 bg-gradient-to-tr font-mono">
+      <nav className="sticky top-0 z-50 border-gray-200 bg-gradient-to-tr from-background-light to-background-dark font-mono">
         <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
           <Link
-            href="/"
+            href={"/"}
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <Image
@@ -25,10 +25,10 @@ export const Navbar: React.FC = () => {
             ></Image>
           </Link>
           <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-            <Link href="/login">
+            <Link href={"/login"}>
               <button
                 type="button"
-                className="bg-accent hover:bg-foreground-accent focus:ring-foreground-accent text-background-dark rounded-lg px-4 py-2 text-center text-sm font-semibold hover:font-bold hover:text-cyan-700 focus:outline-none focus:ring-2"
+                className="rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-background-dark hover:bg-foreground-accent hover:font-bold hover:text-cyan-700 focus:outline-none focus:ring-2 focus:ring-foreground-accent"
               >
                 Get started
               </button>
@@ -37,7 +37,7 @@ export const Navbar: React.FC = () => {
             <button
               data-collapse-toggle="navbar-cta"
               type="button"
-              className="text-accent hover:bg-foreground-accent focus:ring-foreground-accent inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm focus:outline-none focus:ring-2 md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-accent hover:bg-foreground-accent focus:outline-none focus:ring-2 focus:ring-foreground-accent md:hidden"
               aria-controls="navbar-cta"
               aria-expanded="false"
             >
@@ -66,24 +66,24 @@ export const Navbar: React.FC = () => {
             <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-transparent p-4 font-semibold md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse dark:border-gray-700">
               <li>
                 <Link
-                  href="/"
-                  className="text-foreground block rounded bg-transparent px-3 py-2 hover:font-bold hover:text-gray-800 md:p-0 dark:border-gray-700"
+                  href={"/"}
+                  className="block rounded bg-transparent px-3 py-2 text-foreground hover:font-bold hover:text-gray-800 md:p-0 dark:border-gray-700"
                 >
                   About
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/recipe"
-                  className="text-foreground block rounded bg-transparent px-3 py-2 hover:font-bold hover:text-gray-800 md:p-0 dark:border-gray-700"
+                  href={"/recipe"}
+                  className="block rounded bg-transparent px-3 py-2 text-foreground hover:font-bold hover:text-gray-800 md:p-0 dark:border-gray-700"
                 >
                   Browse
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/contact"
-                  className="text-foreground block rounded bg-transparent px-3 py-2 hover:font-bold hover:text-gray-800 md:p-0 dark:border-gray-700"
+                  href={"/contact"}
+                  className="block rounded bg-transparent px-3 py-2 text-foreground hover:font-bold hover:text-gray-800 md:p-0 dark:border-gray-700"
                 >
                   Contact
                 </Link>

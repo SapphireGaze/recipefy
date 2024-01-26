@@ -11,6 +11,7 @@ export interface ParamsId {
 export interface Recipe {
   _id: string;
   name: string;
+  author: string;
   description?: string;
   ingredients: string[];
   instructions: string;

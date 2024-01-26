@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import { Recipe } from "@/lib/types";
 import { fetchRecipes } from "@/lib/api";
 
 import { RecipeCard } from "@/components/RecipeCard";
+import { Loading } from "@/components/Loading";
 
-export default function RecipePage() {
+const Recipes = (): JSX.Element => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
@@ -29,17 +30,13 @@ export default function RecipePage() {
 
   return (
     <>
-      {recipes.length === 0 && (
-        <p className="text-center text-2xl">
-          No recipes available yet. Create your very own recipe today!
-        </p>
-      )}
       <div className="flex flex-wrap justify-between">
         {recipes.map((recipe: Recipe, index: number) => (
           <div key={index}>
             <RecipeCard
               _id={recipe._id}
               name={recipe.name}
+              author={recipe.author}
               description={recipe.description}
               ingredients={recipe.ingredients}
               instructions={recipe.instructions}
@@ -49,7 +46,22 @@ export default function RecipePage() {
             />
           </div>
         ))}
+        {recipes.length === 0 && (
+          <p className="text-center text-2xl">
+            No recipes available yet. Create your very own recipe today!
+          </p>
+        )}
       </div>
+    </>
+  );
+};
+
+export default function RecipePage() {
+  return (
+    <>
+      <Suspense fallback={<Loading />}>
+        <Recipes />
+      </Suspense>
     </>
   );
 }
