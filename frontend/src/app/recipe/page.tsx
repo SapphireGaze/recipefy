@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Recipe } from "@/lib/types";
 import { fetchRecipes } from "@/lib/api";
@@ -7,14 +7,18 @@ import { fetchRecipes } from "@/lib/api";
 import { RecipeCard } from "@/components/RecipeCard";
 import { Loading } from "@/components/Loading";
 
-const Recipes = (): JSX.Element => {
+export default function RecipePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
+
     const fetchData = async (): Promise<JSX.Element | undefined> => {
       try {
         const fetchedRecipes: Recipe[] = await fetchRecipes();
         setRecipes(fetchedRecipes);
+        setLoading(false);
       } catch (err) {
         console.error("Error fetching recipes:", err);
         return (
@@ -27,6 +31,10 @@ const Recipes = (): JSX.Element => {
 
     fetchData();
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -46,22 +54,12 @@ const Recipes = (): JSX.Element => {
             />
           </div>
         ))}
-        {recipes.length === 0 && (
+        {!loading && recipes.length === 0 && (
           <p className="text-center text-2xl">
             No recipes available yet. Create your very own recipe today!
           </p>
         )}
       </div>
-    </>
-  );
-};
-
-export default function RecipePage() {
-  return (
-    <>
-      <Suspense fallback={<Loading />}>
-        <Recipes />
-      </Suspense>
     </>
   );
 }

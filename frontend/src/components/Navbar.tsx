@@ -1,7 +1,16 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
+import { useState } from "react";
+
 export const Navbar: React.FC = () => {
+  const [navbarOpen, setNavbarOpen] = useState(false);
+
+  const toggleNavbar = (): void => {
+    setNavbarOpen(!navbarOpen);
+  };
+
   return (
     <>
       <nav className="sticky top-0 z-50 border-gray-200 bg-gradient-to-tr from-background-light to-background-dark font-mono">
@@ -15,14 +24,14 @@ export const Navbar: React.FC = () => {
               alt="recipefy favicon"
               height={40}
               width={40}
-            ></Image>
+            />
             <Image
               src="/logo.png"
               alt="recipefy logo"
               height={50}
               width={90}
               className="rounded"
-            ></Image>
+            />
           </Link>
           <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
             <Link href={"/login"}>
@@ -35,11 +44,11 @@ export const Navbar: React.FC = () => {
             </Link>
 
             <button
-              data-collapse-toggle="navbar-cta"
+              onClick={toggleNavbar}
               type="button"
               className="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-accent hover:bg-foreground-accent focus:outline-none focus:ring-2 focus:ring-foreground-accent md:hidden"
               aria-controls="navbar-cta"
-              aria-expanded="false"
+              aria-expanded={navbarOpen ? "true" : "false"}
             >
               <span className="sr-only">Open main menu</span>
               <svg
@@ -60,10 +69,12 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
           <div
-            className="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
+            className={`${
+              navbarOpen ? "flex" : "hidden"
+            } w-full items-center justify-center md:order-1 md:flex md:w-auto`}
             id="navbar-cta"
           >
-            <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-transparent p-4 font-semibold md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse dark:border-gray-700">
+            <ul className="mt-4 flex flex-col rounded-lg border border-transparent bg-transparent p-4 font-semibold md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse">
               <li>
                 <Link
                   href={"/"}

@@ -7,14 +7,20 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { ParamsId, Recipe } from "@/lib/types";
 import { fetchRecipe } from "@/lib/api";
 
+import { Loading } from "@/components/Loading";
+
 export default function RecipeIdPage({ params: { _id } }: ParamsId) {
   const [recipe, setRecipe] = useState<Recipe>({} as Recipe);
+  const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
+
     const fetchData = async (): Promise<JSX.Element | undefined> => {
       try {
         const fetchedRecipe: Recipe = await fetchRecipe(_id);
         setRecipe(fetchedRecipe);
+        setLoading(false);
       } catch (err) {
         console.error("Error fetching recipes:", err);
         return (
@@ -27,6 +33,10 @@ export default function RecipeIdPage({ params: { _id } }: ParamsId) {
 
     fetchData();
   }, [_id]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const ingredientsList: JSX.Element | null = recipe.ingredients ? (
     <div className="flex flex-col p-4">
