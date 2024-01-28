@@ -4,8 +4,8 @@ import Link from "next/link";
 
 import { useState } from "react";
 
-export const Navbar: React.FC = () => {
-  const [navbarOpen, setNavbarOpen] = useState(false);
+export const Navbar: React.FC = (): JSX.Element => {
+  const [navbarOpen, setNavbarOpen] = useState<Boolean>(false);
 
   const toggleNavbar = (): void => {
     setNavbarOpen(!navbarOpen);
