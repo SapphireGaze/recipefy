@@ -6,6 +6,7 @@ import { fetchRecipes } from "@/lib/api";
 
 import { RecipeCard } from "@/components/RecipeCard";
 import { Loading } from "@/components/Loading";
+import { CreateRecipeButton } from "@/components/CreateRecipeButton";
 
 export default function RecipePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -60,6 +61,7 @@ export default function RecipePage() {
           </p>
         )}
       </div>
+      <CreateRecipeButton />
     </>
   );
 }

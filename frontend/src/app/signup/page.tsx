@@ -5,7 +5,7 @@ import { FaCheck } from "react-icons/fa";
 export default function SignupPage() {
   return (
     <>
-      <div className="fixed m-2 flex w-96 flex-col rounded-xl bg-foreground bg-clip-border font-mono text-gray-700 shadow-md">
+      <div className="fixed m-2 flex w-96 flex-col rounded-xl bg-clip-border font-mono text-gray-700 md:bg-foreground md:shadow-lg">
         <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-background-light to-background-dark bg-clip-border text-foreground shadow-lg shadow-cyan-800/40">
           <div className="block text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
             Sign Up
@@ -55,7 +55,7 @@ export default function SignupPage() {
                 <input
                   id="checkbox"
                   type="checkbox"
-                  className="before:content[''] border-blue-gray-200 before:bg-blue-gray-500 peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border transition-all before:absolute before:left-2/4 before:top-2/4 before:block before:h-12 before:w-12 before:-translate-x-2/4 before:-translate-y-2/4 before:rounded-full before:opacity-0 before:transition-opacity checked:border-foreground-accent checked:bg-background-dark checked:before:bg-background-light hover:before:opacity-10"
+                  className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-background-light transition-all before:absolute before:left-2/4 before:top-2/4 before:block before:h-12 before:w-12 before:-translate-x-2/4 before:-translate-y-2/4 before:rounded-full before:opacity-0 before:transition-opacity checked:border-foreground-accent checked:bg-background-dark checked:before:bg-background-light hover:before:opacity-10"
                 />
                 <span className="pointer-events-none absolute left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
                   <FaCheck />
