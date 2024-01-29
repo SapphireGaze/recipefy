@@ -12,7 +12,7 @@ export interface IUser {
 export interface IUserModel extends mongoose.Model<IUser> {
   register(email: string, username: string, password: string): Promise<void>;
   login(username: string, password: string): Promise<string>;
-  validateToken(token: string): Promise<string>;
+  authenticate(token: string): Promise<string>;
 }
 
 export interface IRecipe {

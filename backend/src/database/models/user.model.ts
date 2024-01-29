@@ -97,7 +97,7 @@ userSchema.statics.login = async function (
   return token;
 };
 
-userSchema.statics.validateToken = async function (
+userSchema.statics.authenticate = async function (
   token: string
 ): Promise<string> {
   if (!token) {

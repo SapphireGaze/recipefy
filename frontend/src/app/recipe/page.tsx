@@ -9,8 +9,8 @@ import { Loading } from "@/components/Loading";
 import { CreateRecipeButton } from "@/components/CreateRecipeButton";
 
 export default function RecipePage() {
+  const [loading, setLoading] = useState<boolean>(true);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
     setLoading(true);

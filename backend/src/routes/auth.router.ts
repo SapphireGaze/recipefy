@@ -7,7 +7,7 @@ const AuthRouter: express.Router = express.Router();
 AuthRouter.use(express.json());
 
 AuthRouter.get(
-  "/validate",
+  "/authenticate",
   async (req: express.Request, res: express.Response) => {
     try {
       const token: string =
@@ -15,7 +15,7 @@ AuthRouter.get(
           req.headers.authorization.split(" ")[1]) ||
         "";
 
-      const _id: string = await UserModel.validateToken(token);
+      const _id: string = await UserModel.authenticate(token);
 
       res.status(200).json({ _id: _id });
     } catch (err) {
@@ -25,7 +25,7 @@ AuthRouter.get(
   }
 );
 
-AuthRouter.get(
+AuthRouter.post(
   "/login",
   async (req: express.Request, res: express.Response) => {
     try {

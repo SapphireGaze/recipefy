@@ -3,13 +3,42 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useState } from "react";
+import { IconContext } from "react-icons";
+import { FaUser } from "react-icons/fa";
+
+import useAuth from "@/hooks/useAuth";
 
 export const Navbar: React.FC = (): JSX.Element => {
-  const [navbarOpen, setNavbarOpen] = useState<Boolean>(false);
+  const isLoggedIn: boolean = useAuth();
+  const [navbarOpen, setNavbarOpen] = useState<boolean>(false);
 
   const toggleNavbar = (): void => {
     setNavbarOpen(!navbarOpen);
   };
+
+  const profileDisplay: JSX.Element = isLoggedIn ? (
+    <>
+      <Link
+        href={"/profile"}
+        className="mx-12 rounded-full p-3 outline outline-1 outline-foreground hover:outline-foreground-accent"
+      >
+        <IconContext.Provider value={{ color: "white" }}>
+          <FaUser />
+        </IconContext.Provider>
+      </Link>
+    </>
+  ) : (
+    <>
+      <Link href={"/login"}>
+        <button
+          type="button"
+          className="rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-background-dark hover:bg-foreground-accent hover:font-bold hover:text-cyan-700 focus:outline-none focus:ring-2 focus:ring-foreground-accent"
+        >
+          Get started
+        </button>
+      </Link>
+    </>
+  );
 
   return (
     <>
@@ -34,14 +63,7 @@ export const Navbar: React.FC = (): JSX.Element => {
             />
           </Link>
           <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-            <Link href={"/login"}>
-              <button
-                type="button"
-                className="rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-background-dark hover:bg-foreground-accent hover:font-bold hover:text-cyan-700 focus:outline-none focus:ring-2 focus:ring-foreground-accent"
-              >
-                Get started
-              </button>
-            </Link>
+            {profileDisplay}
 
             <button
               onClick={toggleNavbar}

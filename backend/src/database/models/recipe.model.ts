@@ -43,7 +43,7 @@ recipeSchema.statics.add = async function (
   token: string,
   recipe: IRecipe
 ): Promise<void> {
-  const _id: string = await UserModel.validateToken(token);
+  const _id: string = await UserModel.authenticate(token);
 
   const newRecipe: IRecipe = await RecipeModel.create({
     name: recipe.name,

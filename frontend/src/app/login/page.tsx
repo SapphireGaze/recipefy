@@ -1,8 +1,31 @@
+"use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
+import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 
+import { login } from "@/lib/api";
+
 export default function LoginPage() {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const router: AppRouterInstance = useRouter();
+
+  const handleLogin = async (): Promise<void> => {
+    try {
+      const token: string = await login(username, password);
+      localStorage.setItem("token", token);
+      router.refresh();
+
+      router.push("/recipe");
+    } catch (err) {
+      console.error("Error logging in:", err);
+    }
+  };
+
   return (
     <>
       <div className="fixed m-2 flex w-96 flex-col rounded-xl bg-clip-border font-mono text-gray-700 md:bg-foreground md:shadow-lg">
@@ -17,6 +40,7 @@ export default function LoginPage() {
               id="username"
               type="text"
               placeholder=""
+              onChange={(e) => setUsername(e.target.value)}
               className="peer h-full w-full rounded-md border border-t-transparent bg-transparent px-3 py-3 text-sm font-normal outline outline-0 transition-all placeholder-shown:border focus:border-2 focus:border-background-dark focus:border-t-transparent focus:outline-0 disabled:border-0"
             />
             <label className="before:content[' '] after:content[' '] pointer-events-none absolute -top-1.5 left-0 flex h-full w-full select-none text-sm font-normal leading-tight transition-all before:pointer-events-none before:mr-1 before:mt-[6.5px] before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-l before:border-t before:transition-all after:pointer-events-none after:ml-1 after:mt-[6.5px] after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-r after:border-t after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-background-light peer-focus:before:border-l-2 peer-focus:before:border-t-2 peer-focus:before:!border-background-dark peer-focus:after:border-r-2 peer-focus:after:border-t-2 peer-focus:after:!border-background-dark peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent">
@@ -28,6 +52,7 @@ export default function LoginPage() {
               id="password"
               type="password"
               placeholder=""
+              onChange={(e) => setPassword(e.target.value)}
               className="peer h-full w-full rounded-md border border-t-transparent bg-transparent px-3 py-3 text-sm font-normal outline outline-0 transition-all placeholder-shown:border focus:border-2 focus:border-background-dark focus:border-t-transparent focus:outline-0 disabled:border-0"
             />
             <label className="before:content[' '] after:content[' '] pointer-events-none absolute -top-1.5 left-0 flex h-full w-full select-none text-sm font-normal leading-tight transition-all before:pointer-events-none before:mr-1 before:mt-[6.5px] before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-l before:border-t before:transition-all after:pointer-events-none after:ml-1 after:mt-[6.5px] after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-r after:border-t after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-background-light peer-focus:before:border-l-2 peer-focus:before:border-t-2 peer-focus:before:!border-background-dark peer-focus:after:border-r-2 peer-focus:after:border-t-2 peer-focus:after:!border-background-dark peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent">
@@ -63,6 +88,7 @@ export default function LoginPage() {
           <button
             data-ripple-light="true"
             type="button"
+            onClick={handleLogin}
             className="block w-full select-none rounded-lg bg-gradient-to-tr from-background-light to-background-dark px-6 py-3 text-center align-middle text-xs font-bold uppercase text-white shadow-md shadow-cyan-800/40 transition-all hover:shadow-lg hover:shadow-cyan-800/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             Log In

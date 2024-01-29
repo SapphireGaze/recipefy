@@ -10,8 +10,8 @@ import { fetchRecipe } from "@/lib/api";
 import { Loading } from "@/components/Loading";
 
 export default function RecipeIdPage({ params: { _id } }: ParamsId) {
+  const [loading, setLoading] = useState<boolean>(true);
   const [recipe, setRecipe] = useState<Recipe>({} as Recipe);
-  const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
     setLoading(true);
