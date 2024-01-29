@@ -6,6 +6,10 @@ export interface Token {
   token: string;
 }
 
+export interface ErrorMessage {
+  error: string;
+}
+
 export interface ParamsId {
   params: {
     _id: string;

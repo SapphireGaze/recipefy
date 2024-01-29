@@ -18,7 +18,6 @@ export default function LoginPage() {
     try {
       const token: string = await login(username, password);
       localStorage.setItem("token", token);
-      router.refresh();
 
       router.push("/recipe");
     } catch (err) {

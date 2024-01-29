@@ -20,7 +20,7 @@ export const Navbar: React.FC = (): JSX.Element => {
     <>
       <Link
         href={"/profile"}
-        className="mx-12 rounded-full p-3 outline outline-1 outline-foreground hover:outline-foreground-accent"
+        className="rounded-full p-3 outline outline-1 outline-foreground hover:outline-foreground-accent md:mx-12"
       >
         <IconContext.Provider value={{ color: "white" }}>
           <FaUser />
